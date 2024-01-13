@@ -1,4 +1,4 @@
-package net.noah.redstonelink;
+package net.noah.redstoneplus;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -35,35 +35,31 @@ public class ChannelManager extends SavedData {
         return pCompoundTag;
     }
 
-    public static void putData(String channelId, BlockPos blockPos, int signalStrength, ServerLevel serverLevel) {
-        ChannelManager cm = serverLevel.getDataStorage().computeIfAbsent(ChannelManager::new, ChannelManager::new, RedstoneLink.MOD_ID);
-        cm.channelMap.add(new Channel(channelId,blockPos, signalStrength));
+    public static void putData(String channelId, BlockPos blockPos, boolean powered, ServerLevel serverLevel) {
+        ChannelManager cm = serverLevel.getServer().overworld().getDataStorage().computeIfAbsent(ChannelManager::new, ChannelManager::new, RedstonePlus.MOD_ID);
+        cm.channelMap.add(new Channel(channelId,blockPos, powered));
         cm.setDirty();
     }
 
-    public static List<Channel> getData(ServerLevel level) {
-        return level.getDataStorage().get(ChannelManager::new, RedstoneLink.MOD_ID).channelMap;
-    }
-
-    public static void updateByBlockPos(String channelId, BlockPos blockPos, int signalStrength, ServerLevel serverLevel) {
-        ChannelManager cm = serverLevel.getDataStorage().computeIfAbsent(ChannelManager::new, ChannelManager::new, RedstoneLink.MOD_ID);
+    public static void updateByBlockPos(String channelId, BlockPos blockPos, boolean powered, ServerLevel serverLevel) {
+        ChannelManager cm = serverLevel.getServer().overworld().getDataStorage().computeIfAbsent(ChannelManager::new, ChannelManager::new, RedstonePlus.MOD_ID);
         //update entry that matches blockPos, if not exists -> put new Channel
         AtomicBoolean found = new AtomicBoolean(false);
         cm.channelMap.forEach(channel -> {
             if (channel.getBlockPos().equals(blockPos)) {
-                channel.setSignalStrength(signalStrength);
+                channel.setPowered(powered);
                 channel.setChannelId(channelId);
                 found.set(true);
             }
         });
         if (!found.get()) {
-            putData(channelId, blockPos, signalStrength, serverLevel);
+            putData(channelId, blockPos, powered, serverLevel);
         }
         cm.setDirty();
     }
 
     public static void removeByBlockPos(BlockPos blockPos, ServerLevel serverLevel) {
-        ChannelManager cm = serverLevel.getDataStorage().computeIfAbsent(ChannelManager::new, ChannelManager::new, RedstoneLink.MOD_ID);
+        ChannelManager cm = serverLevel.getServer().overworld().getDataStorage().computeIfAbsent(ChannelManager::new, ChannelManager::new, RedstonePlus.MOD_ID);
         Iterator<Channel> iterator = cm.channelMap.iterator();
         while (iterator.hasNext()) {
             Channel c= iterator.next();
@@ -74,58 +70,51 @@ public class ChannelManager extends SavedData {
         cm.setDirty();
     }
 
-    public static int getHighestSignalStrength(String channelId, ServerLevel serverLevel) {
-        ChannelManager cm = serverLevel.getDataStorage().computeIfAbsent(ChannelManager::new, ChannelManager::new, RedstoneLink.MOD_ID);
-        int signalStrength = 0;
+    public static boolean getPower(String channelId, ServerLevel serverLevel) {
+        ChannelManager cm = serverLevel.getServer().overworld().getDataStorage().computeIfAbsent(ChannelManager::new, ChannelManager::new, RedstonePlus.MOD_ID);
         for (Channel c : cm.channelMap) {
-            if (c.getChannelId().equals(channelId) && c.getSignalStrength()>signalStrength) {
-                signalStrength=c.getSignalStrength();
+            if (c.getChannelId().equals(channelId) && c.getPowered()) {
+                return true;
             }
         }
-        return signalStrength;
-    }
-
-    public static void clearChannels(ServerLevel serverLevel) {
-        ChannelManager cm = serverLevel.getDataStorage().computeIfAbsent(ChannelManager::new, ChannelManager::new, RedstoneLink.MOD_ID);
-        cm.channelMap.clear();
-        cm.setDirty();
+        return false;
     }
 
     static class Channel {
         private String channelId;
         private BlockPos blockPos;
-        private int signalStrength;
+        private boolean powered;
 
-        public Channel(String channelId, BlockPos blockPos, int signalStrength){
+        public Channel(String channelId, BlockPos blockPos, boolean powered){
             this.channelId=channelId;
             this.blockPos=blockPos;
-            this.signalStrength=signalStrength;
+            this.powered=powered;
         }
 
         public CompoundTag deserialize() {
             CompoundTag nbt = new CompoundTag();
             nbt.putString("channelId", channelId);
             nbt.putLong("blockPos", blockPos.asLong());
-            nbt.putInt("signalStrength", signalStrength);
+            nbt.putBoolean("powered", powered);
             return nbt;
         }
         public static Channel serialize(CompoundTag nbt) {
-            return new Channel(nbt.getString("channelId"), BlockPos.of(nbt.getLong("blockPos")), nbt.getInt("signalStrength"));
+            return new Channel(nbt.getString("channelId"), BlockPos.of(nbt.getLong("blockPos")), nbt.getBoolean("powered"));
         }
 
         public void setChannelId(String channelId) {
             this.channelId = channelId;
         }
-        public void setSignalStrength(int signalStrength) {
-            this.signalStrength = signalStrength;
+        public void setPowered(boolean powered) {
+            this.powered = powered;
         }
 
         public BlockPos getBlockPos() {
             return blockPos;
         }
 
-        public int getSignalStrength() {
-            return signalStrength;
+        public boolean getPowered() {
+            return powered;
         }
 
         public String getChannelId() {
@@ -134,7 +123,7 @@ public class ChannelManager extends SavedData {
 
         @Override
         public String toString() {
-            return "channelId: "+channelId+" blockPos: "+blockPos.toString()+" signalStrength: "+signalStrength + "\n";
+            return "channelId: "+channelId+" blockPos: "+blockPos.toString()+" powered: "+powered + "\n";
         }
     }
 }

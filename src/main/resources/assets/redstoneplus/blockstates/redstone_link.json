@@ -1,100 +1,100 @@
 {
   "variants": {
     "face=floor,facing=north,is_sender=false": {
-      "model": "redstonelink:block/redstone_link"
+      "model": "redstoneplus:block/redstone_link"
     },
     "face=floor,facing=east,is_sender=false": {
-      "model": "redstonelink:block/redstone_link",
+      "model": "redstoneplus:block/redstone_link",
       "y": 90
     },
     "face=floor,facing=south,is_sender=false": {
-      "model": "redstonelink:block/redstone_link",
+      "model": "redstoneplus:block/redstone_link",
       "y": 180
     },
     "face=floor,facing=west,is_sender=false": {
-      "model": "redstonelink:block/redstone_link",
+      "model": "redstoneplus:block/redstone_link",
       "y": 270
     },
     "face=wall,facing=north,is_sender=false": {
-      "model": "redstonelink:block/redstone_link_vertical",
+      "model": "redstoneplus:block/redstone_link_vertical",
       "y": 180
     },
     "face=wall,facing=east,is_sender=false": {
-      "model": "redstonelink:block/redstone_link_vertical",
+      "model": "redstoneplus:block/redstone_link_vertical",
       "y": 270
     },
     "face=wall,facing=south,is_sender=false": {
-      "model": "redstonelink:block/redstone_link_vertical"
+      "model": "redstoneplus:block/redstone_link_vertical"
     },
     "face=wall,facing=west,is_sender=false": {
-      "model": "redstonelink:block/redstone_link_vertical",
+      "model": "redstoneplus:block/redstone_link_vertical",
       "y": 90
     },
     "face=ceiling,facing=north,is_sender=false": {
-      "model": "redstonelink:block/redstone_link",
+      "model": "redstoneplus:block/redstone_link",
       "x":180
     },
     "face=ceiling,facing=east,is_sender=false": {
-      "model": "redstonelink:block/redstone_link",
+      "model": "redstoneplus:block/redstone_link",
       "x":180,
       "y": 90
     },
     "face=ceiling,facing=south,is_sender=false": {
-      "model": "redstonelink:block/redstone_link",
+      "model": "redstoneplus:block/redstone_link",
       "x":180,
       "y": 180
     },
     "face=ceiling,facing=west,is_sender=false": {
-      "model": "redstonelink:block/redstone_link",
+      "model": "redstoneplus:block/redstone_link",
       "x":180,
       "y": 270
     },
     "face=floor,facing=north,is_sender=true": {
-      "model": "redstonelink:block/redstone_link_sender"
+      "model": "redstoneplus:block/redstone_link_sender"
     },
     "face=floor,facing=east,is_sender=true": {
-      "model": "redstonelink:block/redstone_link_sender",
+      "model": "redstoneplus:block/redstone_link_sender",
       "y": 90
     },
     "face=floor,facing=south,is_sender=true": {
-      "model": "redstonelink:block/redstone_link_sender",
+      "model": "redstoneplus:block/redstone_link_sender",
       "y": 180
     },
     "face=floor,facing=west,is_sender=true": {
-      "model": "redstonelink:block/redstone_link_sender",
+      "model": "redstoneplus:block/redstone_link_sender",
       "y": 270
     },
     "face=wall,facing=north,is_sender=true": {
-      "model": "redstonelink:block/redstone_link_sender_vertical",
+      "model": "redstoneplus:block/redstone_link_sender_vertical",
       "y": 180
     },
     "face=wall,facing=east,is_sender=true": {
-      "model": "redstonelink:block/redstone_link_sender_vertical",
+      "model": "redstoneplus:block/redstone_link_sender_vertical",
       "y": 270
     },
     "face=wall,facing=south,is_sender=true": {
-      "model": "redstonelink:block/redstone_link_sender_vertical"
+      "model": "redstoneplus:block/redstone_link_sender_vertical"
     },
     "face=wall,facing=west,is_sender=true": {
-      "model": "redstonelink:block/redstone_link_sender_vertical",
+      "model": "redstoneplus:block/redstone_link_sender_vertical",
       "y": 90
     },
     "face=ceiling,facing=north,is_sender=true": {
-      "model": "redstonelink:block/redstone_link_sender",
+      "model": "redstoneplus:block/redstone_link_sender",
       "x":180
     },
     "face=ceiling,facing=east,is_sender=true": {
-      "model": "redstonelink:block/redstone_link_sender",
+      "model": "redstoneplus:block/redstone_link_sender",
       "x":180,
       "y": 90
     },
     "face=ceiling,facing=south,is_sender=true": {
-      "model": "redstonelink:block/redstone_link_sender",
+      "model": "redstoneplus:block/redstone_link_sender",
       "x":180,
       "y": 180
     },
     "face=ceiling,facing=west,is_sender=true": {
-      "model": "redstonelink:block/redstone_link_sender",
+      "model": "redstoneplus:block/redstone_link_sender",
       "x":180,
       "y": 270
     }
