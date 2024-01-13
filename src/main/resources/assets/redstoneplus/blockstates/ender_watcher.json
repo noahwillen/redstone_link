@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "redstoneplus:block/ender_watcher_off"
+    },
+    "powered=true": {
+      "model": "redstoneplus:block/ender_watcher_on",
+      "y": 90
+    }
+  }
+}
